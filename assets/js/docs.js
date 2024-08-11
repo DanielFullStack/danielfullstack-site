@@ -10,73 +10,76 @@ const sidebarLinks = document.querySelectorAll('#docs-sidebar .scrollto');
 
 /* ===== Responsive Sidebar ====== */
 
-window.onload=function() 
-{ 
-    responsiveSidebar(); 
+window.onload = function () {
+	responsiveSidebar();
 };
 
-window.onresize=function() 
-{ 
-    responsiveSidebar(); 
+window.onresize = function () {
+	responsiveSidebar();
 };
 
 
 function responsiveSidebar() {
-    let w = window.innerWidth;
-	if(w >= 1200) {
-	    // if larger 
-	    console.log('larger');
-		sidebar.classList.remove('sidebar-hidden');
-		sidebar.classList.add('sidebar-visible');
-		
+	let w = window.innerWidth;
+	console.log('Window width:', w);
+	if (w >= 1200) {
+		console.log('Larger screen detected');
+		if (sidebar) {
+			sidebar.classList.remove('sidebar-hidden');
+			sidebar.classList.add('sidebar-visible');
+			console.log('Sidebar should be visible now');
+		}
 	} else {
-	    // if smaller
-	    console.log('smaller');
-	    sidebar.classList.remove('sidebar-visible');
-		sidebar.classList.add('sidebar-hidden');
+		console.log('Smaller screen detected');
+		if (sidebar) {
+			sidebar.classList.remove('sidebar-visible');
+			sidebar.classList.add('sidebar-hidden');
+			console.log('Sidebar should be hidden now');
+		}
 	}
-};
+}
 
-sidebarToggler.addEventListener('click', () => {
-	if (sidebar.classList.contains('sidebar-visible')) {
-		console.log('visible');
-		sidebar.classList.remove('sidebar-visible');
-		sidebar.classList.add('sidebar-hidden');
-		
-	} else {
-		console.log('hidden');
-		sidebar.classList.remove('sidebar-hidden');
-		sidebar.classList.add('sidebar-visible');
-	}
-});
+if (sidebarToggler && sidebar) {
+	sidebarToggler.addEventListener('click', () => {
+		if (sidebar.classList.contains('sidebar-visible')) {
+			console.log('visible');
+			sidebar.classList.remove('sidebar-visible');
+			sidebar.classList.add('sidebar-hidden');
 
+		} else {
+			console.log('hidden');
+			sidebar.classList.remove('sidebar-hidden');
+			sidebar.classList.add('sidebar-visible');
+		}
+	});
+}
 
 /* ===== Smooth scrolling ====== */
 /*  Note: You need to include smoothscroll.min.js (smooth scroll behavior polyfill) on the page to cover some browsers */
 /* Ref: https://github.com/iamdustan/smoothscroll */
 
 sidebarLinks.forEach((sidebarLink) => {
-	
+
 	sidebarLink.addEventListener('click', (e) => {
-		
+
 		e.preventDefault();
-		
+
 		var target = sidebarLink.getAttribute("href").replace('#', '');
-		
+
 		//console.log(target);
-		
-        document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
-        
-        
-        //Collapse sidebar after clicking
-		if (sidebar.classList.contains('sidebar-visible') && window.innerWidth < 1200){
-			
+
+		document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+
+
+		//Collapse sidebar after clicking
+		if (sidebar.classList.contains('sidebar-visible') && window.innerWidth < 1200) {
+
 			sidebar.classList.remove('sidebar-visible');
-		    sidebar.classList.add('sidebar-hidden');
-		} 
-		
-    });
-	
+			sidebar.classList.add('sidebar-hidden');
+		}
+
+	});
+
 });
 
 
@@ -91,7 +94,7 @@ var spy = new Gumshoe('#docs-nav a', {
 /* ====== SimpleLightbox Plugin ======= */
 /*  Ref: https://github.com/andreknieriem/simplelightbox */
 
-var lightbox = new SimpleLightbox('.simplelightbox-gallery a', {/* options */});
+var lightbox = new SimpleLightbox('.simplelightbox-gallery a', {/* options */ });
 
 
 
